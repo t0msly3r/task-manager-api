@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint app components hooks lib services types proxy.ts",
-    "lint:fix": "eslint app components hooks lib services types proxy.ts --fix",
+    "lint": "eslint app features lib types proxy.ts",
+    "lint:fix": "eslint app features lib types proxy.ts --fix",
     "format": "prettier --write ."
   },
   "dependencies": {
@@ -24,6 +24,7 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.71.2",
+    "react-hot-toast": "^2.6.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useCreateTask } from "@/features/tasks/hooks/useTasks";
+import toast from "react-hot-toast";
 
 export default function CreateTask() {
   const [title, setTitle] = useState("");
@@ -11,9 +12,16 @@ export default function CreateTask() {
     e.preventDefault();
 
     if (!title.trim()) return;
+    const toastId = toast.loading("Creating task...");
 
-    createTask.mutate(title);
-    setTitle("");
+    createTask.mutate(title, {
+      onSuccess: () => {
+        toast.success("Task added!", { id: toastId });
+        setTitle("");
+      },
+      onError: () =>
+        toast.error("Failed to add task. Please try again.", { id: toastId }),
+    });
   };
 
   return (

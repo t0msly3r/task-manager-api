@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import QueryProvider from "../providers/query-provider";
 import AuthProvider from "../providers/auth-provider";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,7 +18,18 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <QueryProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                style: {
+                  background: "#333",
+                  color: "#fff",
+                },
+              }}
+            />
+            {children}
+          </AuthProvider>
         </QueryProvider>
       </body>
     </html>

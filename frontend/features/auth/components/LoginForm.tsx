@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useLogin } from "@/features/auth/hooks/useAuth";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function LoginForm() {
   const login = useLogin();
@@ -19,6 +20,7 @@ export default function LoginForm() {
       { email, password },
       {
         onSuccess: () => {
+          toast.success("Logged in successfully!");
           router.push("/tasks");
         },
         onError: (error: unknown) => {
