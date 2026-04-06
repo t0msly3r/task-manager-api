@@ -27,7 +27,7 @@ export default function CreateTask() {
   return (
     <form onSubmit={handleSubmit} className="flex gap-2">
       <input
-        className="flex-1 border rounded-lg p-3 outline-none focus:ring-2 focus:ring-blue-400 bg-white shadow-sm"
+        className="flex-1 border border-gray-300 rounded-lg p-3 outline-none focus:ring-2 focus:ring-cyan-100 bg-white shadow-sm text-gray-900"
         type="text"
         placeholder="What do you need to do?"
         value={title}
