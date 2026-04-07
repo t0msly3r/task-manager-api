@@ -1,174 +1,220 @@
-<h1>Task Manager API</h1>
-
-<p>
-  A RESTful backend API for managing tasks with authentication, role-based authorization and secure best practices.
-</p>
-
-<p>
-  This project demonstrates a production-style Node.js backend using Express, TypeScript, Prisma and PostgreSQL.
-  It includes authentication with JWT, request validation, error handling, security middleware and Docker support.
-</p>
-
-<h2>API Documentation</h2>
-
-<p>The API is fully documented with Swagger:</p>
+# TaskFlow — Fullstack Task Manager
 
 <p align="center">
-  <img src="./assets/swagger.png" width="900"/>
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white"/>
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white"/>
+  <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"/>
 </p>
 
-<hr>
+<p align="center">
+  A production-ready RESTful API for task management, featuring JWT authentication, role-based authorization, request validation and full Swagger documentation.
+</p>
 
-<h2>Tech Stack</h2>
+---
 
-<ul>
-<li>Node.js</li>
-<li>Express</li>
-<li>TypeScript</li>
-<li>Prisma ORM</li>
-<li>PostgreSQL</li>
-<li>Docker & Docker Compose</li>
-<li>JWT Authentication</li>
-<li>Zod Validation</li>
-<li>Swagger (OpenAPI Documentation)</li>
-<li>Pino Logger</li>
-<li>Helmet Security Middleware</li>
-<li>Express Rate Limit</li>
-</ul>
+## Table of Contents
 
-<hr>
+- [Overview](#overview)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [API Reference](#api-reference)
+- [Security](#security)
+- [Frontend](#frontend)
 
-<h2>Project Architecture</h2>
+---
 
-<p>The application follows a layered architecture:</p>
+## Overview
 
-<pre>
-Routes → Controllers → Services → Database
-</pre>
+TaskFlow is a full-stack task management application. This repository contains the **backend API**, built with Node.js, Express and TypeScript, following a clean layered architecture. It is designed to be maintainable, secure and easy to extend.
 
-<ul>
-<li><b>Routes</b> define the API endpoints</li>
-<li><b>Controllers</b> handle the HTTP request/response cycle</li>
-<li><b>Services</b> contain business logic</li>
-<li><b>Prisma</b> manages database access</li>
-</ul>
+Key features include:
 
-<p>Error handling, validation and authentication are implemented using Express middlewares.</p>
+- JWT-based authentication with secure cookie and header support
+- Role-based access control (User / Admin)
+- Full CRUD for tasks, scoped per user
+- Input validation via Zod schemas
+- Rate limiting, helmet headers and bcrypt password hashing
+- Interactive API documentation via Swagger UI
+- Docker Compose setup for one-command local development
 
-<hr>
+---
 
-<h2>Project Structure</h2>
+## Tech Stack
 
-<pre>
-src
-├── controllers
-├── services
-├── routes
-├── middlewares
-├── errors
-├── schemas
-├── config
-├── prisma
-└── server.ts
-</pre>
+| Layer | Technology |
+|---|---|
+| Runtime | Node.js |
+| Language | TypeScript |
+| Framework | Express |
+| ORM | Prisma |
+| Database | PostgreSQL |
+| Auth | JWT (jsonwebtoken) |
+| Validation | Zod |
+| Documentation | Swagger / OpenAPI |
+| Logging | Pino |
+| Security | Helmet, express-rate-limit, bcrypt |
+| Containerization | Docker & Docker Compose |
 
-<hr>
+---
 
-<h2>Running the Project</h2>
+## Architecture
 
-<p>Clone the repository:</p>
+The application follows a **layered architecture** to keep concerns separated and the codebase easy to navigate:
 
-<pre>
+```
+HTTP Request
+    │
+    ▼
+ Routes          → Define endpoints and apply middleware
+    │
+    ▼
+ Controllers     → Handle request/response cycle
+    │
+    ▼
+ Services        → Business logic
+    │
+    ▼
+ Prisma Client   → Database access (PostgreSQL)
+```
+
+Cross-cutting concerns such as authentication, validation and error handling are implemented as **Express middlewares**, keeping controllers thin and focused.
+
+---
+
+## Project Structure
+
+```
+src/
+├── config/          # App configuration and environment variables
+├── controllers/     # Request handlers
+├── errors/          # Custom error classes
+├── middlewares/     # Auth, validation, error handling
+├── prisma/          # Prisma schema and migrations
+├── routes/          # Route definitions
+├── schemas/         # Zod validation schemas
+├── services/        # Business logic layer
+└── server.ts        # App entry point
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js ≥ 20
+- Docker & Docker Compose (recommended)
+- PostgreSQL (if running locally without Docker)
+
+### Clone the repository
+
+```bash
 git clone https://github.com/t0msly3r/task-api.git
-cd task-manager-api
-</pre>
+cd task-api
+```
 
-<h3>Environment Variables</h3>
+### Run with Docker (recommended)
 
-<p>Create a <code>.env</code> file in the root directory:</p>
-
-<pre>
-DATABASE_URL=postgresql://admin:admin@postgres:5432/tasksdb
-JWT_SECRET=your_secret_key
-</pre>
-
-<p>Run the application with Docker:</p>
-
-<pre>
+```bash
 docker-compose up --build
-</pre>
+```
 
-<p>Run the application locally:</p>
+This will start both the API server and a PostgreSQL instance. The API will be available at `http://localhost:3000`.
 
-<pre>
+### Run locally
+
+```bash
 npm install
 npx prisma generate
+npx prisma migrate dev
 npm run dev
-</pre>
+```
 
-<p>The API will be available at:</p>
+---
 
-<pre>
-http://localhost:3000
-</pre>
+## Environment Variables
 
-<hr>
+Create a `.env` file in the root of the project:
 
-<h2>API Documentation</h2>
+```env
+DATABASE_URL=postgresql://admin:admin@localhost:5432/tasksdb
+JWT_SECRET=your_secret_key_here
+PORT=3000
+```
 
-<p>
-Swagger documentation is available at:
-</p>
+> **Note:** Never commit your `.env` file. It is already included in `.gitignore`.
 
-<pre>
+---
+
+## API Reference
+
+Interactive documentation is available via Swagger UI once the server is running:
+
+```
 http://localhost:3000/docs
-</pre>
+```
 
-<p>You can explore and test all endpoints directly from the browser.</p>
+### Authentication
 
-<hr>
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/auth/register` | Create a new user account |
+| `POST` | `/auth/login` | Log in and receive a JWT token |
+| `GET` | `/auth/me` | Get the currently authenticated user |
 
-<h2>Main Endpoints</h2>
+### Tasks
 
-<h3>Authentication</h3>
+All task endpoints require a valid `Authorization: Bearer <token>` header.
 
-<ul>
-<li>POST /auth/register</li>
-<li>POST /auth/login</li>
-<li>GET /auth/me</li>
-</ul>
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/tasks` | List all tasks for the authenticated user |
+| `POST` | `/tasks` | Create a new task |
+| `PUT` | `/tasks/:id` | Update a task (title or completed status) |
+| `DELETE` | `/tasks/:id` | Delete a task |
 
-<h3>Tasks</h3>
+> Admins can view and manage all tasks across users.
 
-<ul>
-<li>GET /tasks</li>
-<li>POST /tasks</li>
-<li>PUT /tasks/{id}</li>
-<li>DELETE /tasks/{id}</li>
-</ul>
+---
 
-<hr>
+## Security
 
-<h2>Security Features</h2>
+| Feature | Implementation |
+|---|---|
+| Password hashing | bcrypt with salt rounds |
+| Authentication | JWT signed tokens |
+| Authorization | Role-based middleware (User / Admin) |
+| Validation | Zod schemas on all inputs |
+| Rate limiting | express-rate-limit to prevent brute force |
+| HTTP headers | Helmet for secure defaults |
 
-<ul>
-<li>Password hashing with bcrypt</li>
-<li>JWT authentication</li>
-<li>Role-based authorization</li>
-<li>Request validation with Zod</li>
-<li>Rate limiting to prevent brute force attacks</li>
-<li>Secure HTTP headers with Helmet</li>
-</ul>
+---
 
-<hr>
+## Frontend
 
-<h2>Future Improvements</h2>
+This API is consumed by a Next.js frontend located in the `/frontend` directory. It features a clean UI built with Tailwind CSS, React Query for server state management and react-hot-toast for notifications.
 
-<ul>
-<li>Unit and integration tests</li>
-<li>CI/CD pipeline</li>
-<li>Refresh tokens for authentication</li>
-<li>Pagination and filtering for tasks</li>
-<li>Admin role management</li>
-<li>Frontend client built with React or Next.js</li>
-</ul>
+See [`frontend/README.md`](./frontend/README.md) for setup instructions.
+
+---
+
+## Roadmap
+
+- [ ] Unit and integration tests
+- [ ] CI/CD pipeline (GitHub Actions)
+- [ ] Refresh token rotation
+- [ ] Pagination and filtering for tasks
+- [ ] Admin dashboard
+- [ ] WebSocket support for real-time updates
+
+---
+
+## License
+
+MIT
