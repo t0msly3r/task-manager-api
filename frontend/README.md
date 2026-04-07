@@ -1,36 +1,137 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TaskFlow — Frontend
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white"/>
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black"/>
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Tailwind CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"/>
+</p>
+
+<p align="center">
+  The Next.js 16 frontend for the TaskFlow task management application.
+</p>
+
+---
+
+## Table of Contents
+
+- [Tech Stack](#tech-stack)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [Available Scripts](#available-scripts)
+
+---
+
+## Tech Stack
+
+| Category | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 |
+| Server State | TanStack React Query v5 |
+| HTTP Client | Axios |
+| Forms | React Hook Form + Zod |
+| Auth | JWT via js-cookie |
+| Notifications | react-hot-toast |
+
+---
+
+## Features
+
+- **Authentication** — Login and registration forms with error handling and loading states
+- **Protected routes** — Middleware redirects unauthenticated users away from `/tasks`
+- **Task management** — Create, update (inline edit), complete/uncomplete and delete tasks
+- **Role-based UI** — Admin users can edit and delete any task; regular users only their own
+- **Optimistic UX** — Toast notifications for all async actions
+- **Responsive design** — Clean, minimal layout that works on all screen sizes
+- **Auto logout** — Axios interceptor detects expired tokens and redirects to login
+
+---
+
+## Project Structure
+
+```
+frontend/
+├── app/
+│   ├── (dashboard)/
+│   │   ├── login/          # Login page
+│   │   ├── register/       # Register page
+│   │   └── tasks/          # Tasks dashboard (protected)
+│   ├── globals.css
+│   ├── layout.tsx          # Root layout with providers
+│   └── page.tsx            # Landing page
+│
+├── features/
+│   ├── auth/
+│   │   ├── components/     # LoginForm, RegisterForm, LogoutButton
+│   │   ├── hooks/          # useAuth, useLogin, useRegister, useLogout
+│   │   └── services/       # auth.service.ts (API calls)
+│   └── tasks/
+│       ├── components/     # TasksItem, CreateTask, ConfirmModal
+│       ├── hooks/          # useTasks, useCreateTask, useUpdateTask, useDeleteTask
+│       └── services/       # task.service.ts (API calls)
+│
+├── lib/
+│   └── axios.ts            # Axios instance with auth interceptors
+│
+├── providers/
+│   ├── auth-provider.tsx
+│   └── query-provider.tsx  # TanStack Query client
+│
+├── types/
+│   └── tasks.ts            # Task type definitions
+│
+└── proxy.ts                # Next.js middleware for route protection
+```
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js ≥ 20
+- The [backend API](../README.md) running (locally or via Docker)
+
+### Install dependencies
+
+```bash
+cd frontend
+npm install
+```
+
+### Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3001](http://localhost:3001) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+> Make sure `NEXT_PUBLIC_API_URL` is set to your backend URL before starting.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+Create a `.env.local` file inside the `frontend/` directory:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3000
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Available Scripts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Script | Description |
+|---|---|
+| `npm run dev` | Start the development server |
+| `npm run build` | Build for production |
+| `npm run start` | Start the production server |
+| `npm run lint` | Run ESLint |
+| `npm run lint:fix` | Auto-fix lint errors |
+| `npm run format` | Format code with Prettier |
