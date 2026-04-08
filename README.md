@@ -204,6 +204,14 @@ See [`frontend/README.md`](./frontend/README.md) for setup instructions.
 
 ---
 
+## Backend
+
+The REST API is located in the `/backend` directory. Built with Express 5 and TypeScript, it uses Prisma ORM for database access, JWT for authentication, and Zod for input validation. Requests are logged with Pino and the API is documented with Swagger.
+
+See [`backend/README.md`](./backend/README.md) for setup instructions.
+
+---
+
 ## Roadmap
 
 - [ ] Unit and integration tests
