@@ -122,7 +122,7 @@ cd task-api
 ### Run with Docker (recommended)
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 This will start both the API server and a PostgreSQL instance. The API will be available at `http://localhost:3000`.

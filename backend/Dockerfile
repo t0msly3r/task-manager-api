@@ -3,7 +3,7 @@ FROM node:20 as dependencies
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 
 # Build
 FROM node:20 as build
@@ -19,7 +19,7 @@ FROM node:20 AS production
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm install --omit=dev
 
 COPY --from=build /app/build ./build
 COPY --from=build /app/prisma ./prisma
