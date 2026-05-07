@@ -5,12 +5,14 @@ export function proxy(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
 
   const isAuth = !!token;
-  const isDashboard = req.nextUrl.pathname.startsWith("/dashboard");
+  const isProtected =
+    req.nextUrl.pathname.startsWith("/tasks") ||
+    req.nextUrl.pathname.startsWith("/dashboard");
   const isAuthPage =
     req.nextUrl.pathname.startsWith("/login") ||
     req.nextUrl.pathname.startsWith("/register");
 
-  if (!isAuth && isDashboard) {
+  if (!isAuth && isProtected) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
@@ -18,11 +20,9 @@ export function proxy(req: NextRequest) {
     return NextResponse.redirect(new URL("/tasks", req.url));
   }
 
-  console.log("PATH:", req.nextUrl.pathname, "TOKEN:", !!token);
-
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/tasks/:path*", "/login"],
+  matcher: ["/tasks/:path*", "/dashboard/:path*", "/login", "/register"],
 };

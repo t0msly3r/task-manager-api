@@ -43,6 +43,24 @@ Key features include:
 - Interactive API documentation via Swagger UI
 - Docker Compose setup for one-command local development
 
+### Running Both Projects
+
+You can run both backend and frontend from the root directory:
+
+```bash
+npm run dev
+```
+
+This starts both servers in parallel. Alternatively, run them independently:
+
+```bash
+# Terminal 1: Backend (port 3000)
+cd backend && npm run dev
+
+# Terminal 2: Frontend (port 3000 with Turbopack)
+cd frontend && npm run dev
+```
+
 ---
 
 ## Tech Stack
@@ -129,12 +147,30 @@ This will start both the API server and a PostgreSQL instance. The API will be a
 
 ### Run locally
 
+Each project must be run independently:
+
 ```bash
+# Terminal 1: Backend
+cd backend
 npm install
 npx prisma generate
 npx prisma migrate dev
 npm run dev
+
+# Terminal 2: Frontend
+cd frontend
+npm install
+npm run dev
 ```
+
+Or run both from the root:
+
+```bash
+npm install
+npm run dev
+```
+
+The backend runs on `http://localhost:3000` and frontend on `http://localhost:3000`.
 
 ---
 

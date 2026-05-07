@@ -28,7 +28,7 @@
 
 | Category | Technology |
 |---|---|
-| Framework | Next.js 16 (App Router) |
+| Framework | Next.js 16 (App Router) with Turbopack |
 | Language | TypeScript |
 | Styling | Tailwind CSS v4 |
 | Server State | TanStack React Query v5 |
@@ -94,7 +94,7 @@ frontend/
 ### Prerequisites
 
 - Node.js ≥ 20
-- The [backend API](../README.md) running (locally or via Docker)
+- The [backend API](../backend) running (locally or via Docker)
 
 ### Install dependencies
 
@@ -109,7 +109,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3001](http://localhost:3001) in your browser.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 > Make sure `NEXT_PUBLIC_API_URL` is set to your backend URL before starting.
 

@@ -36,14 +36,19 @@
 backend/
 ├── prisma/               # Prisma schema and migrations
 ├── src/
-│   ├── middlewares/      # Error handler, HTTP logger, auth guard
-│   ├── routes/           # Route registration
-│   ├── app.ts            # Express app setup
-│   └── server.ts         # Server entry point
-├── .env.example          # Environment variables template
-├── Dockerfile            # Docker image definition
-├── docker-compose.yml    # Docker Compose setup
-├── tsconfig.json         # TypeScript configuration
+│   ├── config/          # App configuration
+│   ├── controllers/    # Request handlers
+│   ├── errors/         # Custom error classes
+│   ├── middlewares/     # Auth, validation, error handling
+│   ├── routes/        # Route definitions
+│   ├── schemas/        # Zod validation schemas
+│   ├── services/       # Business logic
+│   ├── app.ts         # Express app setup
+│   └── server.ts      # Server entry point
+├── .env.example       # Environment variables template
+├── Dockerfile         # Docker image definition
+├── compose.yml        # Docker Compose setup
+├── tsconfig.json      # TypeScript configuration
 └── package.json
 ```
 
@@ -96,10 +101,10 @@ The server will start at `http://localhost:3000`.
 You can run the entire backend with Docker Compose:
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
-This will start both the API server and the database container as defined in `docker-compose.yml`.
+This will start both the API server and the database container as defined in `compose.yml`.
 
 ---
 

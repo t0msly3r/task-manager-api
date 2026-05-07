@@ -27,12 +27,12 @@ export default function TasksPage() {
 
       <CreateTask />
 
-      {!tasks?.length && (
+      {!Array.isArray(tasks) || !tasks.length && (
         <p className="text-gray-500 mt-4">No tasks yet. Create one 👇</p>
       )}
 
       <ul className="flex flex-col gap-3 mt-4">
-        {tasks?.map((task) => (
+        {Array.isArray(tasks) && tasks.map((task) => (
           <TasksItem key={task.id} task={task} />
         ))}
       </ul>
